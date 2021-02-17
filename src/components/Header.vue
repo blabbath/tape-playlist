@@ -1,12 +1,24 @@
 <template>
     <header>
-        <a href="./">MixTape</a>
+        <p class="app-title">MixTape</p>
+        <div class="header-nav" v-if="token">
+            <router-link cds-layout="m-x:md" to="Recorder"
+                >Recorder</router-link
+            >
+            <router-link cds-layout="m-x:md" to="About">About</router-link>
+        </div>
     </header>
 </template>
 <script>
 export default {
     data() {
         return {}
+    },
+
+    computed: {
+        token() {
+            return this.$store.state.token
+        },
     },
 }
 </script>
@@ -25,5 +37,11 @@ header a {
     text-decoration: none;
     color: #fff;
     font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.app-title {
+    font-weight: 300;
+    font-size: 1.2rem;
 }
 </style>

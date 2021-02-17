@@ -1,30 +1,29 @@
 <template>
-    <div v-if="accessToken" class="content" layout wide>
+    <div class="content" layout wide>
         <div class="content-container" cds-layout="grid">
-            <app-search :token="accessToken" cds-layout="col@md:6"></app-search>
-            <app-tape :token="accessToken" cds-layout="col@md:6"></app-tape>
+            <app-search :token="token" cds-layout="col@md:6"></app-search>
+            <app-tape :token="token" cds-layout="col@md:6"></app-tape>
         </div>
     </div>
-    <div v-else><app-login></app-login></div>
 </template>
 <script>
-import AppLogin from './Login.vue'
-import AppSearch from './Search.vue'
-import AppTape from './Tape.vue'
+import AppSearch from '../components/Search.vue'
+import AppTape from '../components/Tape.vue'
 
 export default {
-    components: { AppLogin, AppSearch, AppTape },
+    components: { AppSearch, AppTape },
     data() {
         return {
             token: null,
         }
     },
-
-    created: function () {
-        this.$store.commit('getToken')
+    mounted() {
+        if (!this.$store.state.token) {
+            this.$store.commit('getToken')
+        }
     },
     computed: {
-        accessToken() {
+        token() {
             return this.$store.state.token
         },
     },

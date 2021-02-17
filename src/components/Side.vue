@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="side-container-inner">
         <p class="side">{{ title }}</p>
         <cds-alert-group
             status="warning"
@@ -14,7 +14,7 @@
                 {{ alert }}
             </cds-alert>
         </cds-alert-group>
-        <table>
+        <transition-group tag="table" name="table">
             <tr
                 v-for="(track, index) in tracks"
                 :key="track"
@@ -57,7 +57,7 @@
                     </div>
                 </td>
             </tr>
-        </table>
+        </transition-group>
     </div>
 </template>
 <script>
@@ -92,4 +92,73 @@ export default {
     },
 }
 </script>
-<style></style>
+<style scoped>
+.side {
+    position: relative;
+    margin: 0;
+    padding: 0 2rem 0.5rem;
+    border-bottom: 1px solid #666666;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr td {
+    border-bottom: 1px dotted #666666;
+}
+
+td {
+    border-spacing: 0;
+    padding: 0.5rem 0.5rem;
+}
+
+cds-alert-group {
+    margin-left: 0.75rem;
+    width: 60%;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.move-icon {
+    --color: #666666;
+}
+
+.side-container-inner {
+    padding: 1rem;
+}
+
+.table-enter-from {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.table-enter-to {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.table-enter-active {
+    transition: all 0.33s ease;
+}
+
+.table-leave-from {
+    opacity: 1;
+    transform: scale(1);
+}
+.table-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
+}
+.table-leave-active {
+    transition: all 0.33s ease;
+}
+
+.table-move {
+    transition: transform 0.66s;
+}
+</style>

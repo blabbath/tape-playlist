@@ -4,7 +4,7 @@
             cds-layout="grid cols@sm:12 cols@xl:6 align:horizontal-center"
             class="sides"
         >
-            <div cds-layout="p-y:lg" cds-text="section" class="side-container">
+            <div cds-text="section" class="side-container">
                 <app-side
                     :alert="alertSideA"
                     :tracks="tracksA"
@@ -12,7 +12,7 @@
                     sideIdentifier="sideA"
                 ></app-side>
             </div>
-            <div cds-layout="p-y:lg" cds-text="section" class="side-container">
+            <div cds-text="section" class="side-container">
                 <app-side
                     :alert="alertSideB"
                     :tracks="tracksB"
@@ -51,52 +51,33 @@ export default {
 .tape-container {
     position: absolute;
     width: 100%;
-    top: 42.5%;
-    margin: 1rem 0 0 0;
+    left: 0;
+    right: 0;
+    top: 30%;
+    margin: 0 auto;
     padding: 1rem 0;
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 3px;
+    border: 1px solid #666666;
 }
 
+@media only screen and (min-width: 768px) {
+    .tape-container {
+        top: 32%;
+        width: 90%;
+    }
+}
 @media only screen and (min-width: 992px) {
     .tape-container {
-        top: 37.5%;
+        top: 28%;
+        width: 80%;
     }
 }
 
-.side {
-    position: relative;
-    margin: 0;
-    padding: 0 2rem 0.5rem;
-    border-bottom: 1px solid #666666;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-tr td {
-    border-bottom: 1px dotted #666666;
-}
-
-td {
-    border-spacing: 0;
-    padding: 0.5rem 0.5rem;
-}
-
-cds-alert-group {
-    margin-left: 0.75rem;
-    width: 60%;
-}
-
-.icon {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.move-icon {
-    --color: #666666;
+@media only screen and (min-width: 1440px) {
+    .tape-container {
+        top: 30%;
+    }
 }
 
 .side-container {

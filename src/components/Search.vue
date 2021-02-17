@@ -28,23 +28,16 @@
                     }})
                 </div>
             </div>
-            <div class="save-container">
-                <input
-                    type="text"
-                    placeholder="Mixtape Name"
-                    cds-text="section"
-                    v-model="mixName"
-                    required
-                />
-                <cds-button @click="createMixtape">Save Mixtape </cds-button>
-            </div>
         </div>
     </div>
+    <!-- <app-create :token="token"></app-create> -->
 </template>
 <script>
 import axios from 'axios'
+import AppCreate from './CreateMixtape.vue'
 
 export default {
+    components: { AppCreate },
     props: ['token'],
     data() {
         return {
@@ -99,59 +92,6 @@ export default {
         addTrackToStore: function (result) {
             this.$store.commit('addTrack', result)
         },
-
-        createMixtape: function () {
-            if (this.mixName.length === 0) {
-                return false
-            } else {
-                let authorization = `Bearer ${this.token}`
-
-                axios({
-                    method: 'get',
-                    headers: {
-                        Authorization: authorization,
-                    },
-                    url: `https://api.spotify.com/v1/me`,
-                }).then((response) => {
-                    let userId = response.data.id
-                    axios({
-                        method: 'post',
-                        data: {
-                            name: this.mixName,
-                            description: 'New Mixtape',
-                            public: false,
-                        },
-
-                        headers: {
-                            Authorization: authorization,
-                        },
-                        url: `https://api.spotify.com/v1/users/${userId}/playlists`,
-                    }).then((response) => {
-                        let playlistId = response.data.id
-                        axios({
-                            method: 'POST',
-                            headers: {
-                                Authorization: authorization,
-                            },
-                            url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${this.tracks}`,
-                        })
-                    })
-                })
-            }
-        },
-    },
-    computed: {
-        tracks() {
-            let sideA = this.$store.state.sides.sideA
-            let sideB = this.$store.state.sides.sideB
-            let sides = sideA.push(...sideB)
-            let tracks = []
-            sideA.forEach((s) => tracks.push(s.id))
-            sideB.forEach((s) => tracks.push(s.id))
-            let arr = tracks.map((track) => 'spotify%3Atrack%3A' + track)
-            let tracksString = arr.join('%2C')
-            return tracksString
-        },
     },
 }
 </script>
@@ -160,23 +100,34 @@ export default {
     position: absolute;
     left: 0;
     right: 0;
-    top: 16%;
+    top: 11%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 768px) {
     .search-container {
-        top: 12%;
-        width: 20rem;
+        top: 13%;
+        width: 24rem;
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
     .search-container {
-        width: 24rem;
-        margin: 0 auto;
+        top: 9%;
+        width: 30rem;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .search-container {
+        top: 9%;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .search-container {
+        top: 11%;
+        width: 40rem;
     }
 }
 
@@ -193,7 +144,7 @@ input[type='text'] {
 
 input:focus {
     background-color: white;
-    outline-color: #fe763e;
+    outline-color: black;
 }
 
 input[type='search']::-webkit-search-cancel-button {
@@ -207,10 +158,9 @@ input[type='search']::-webkit-search-cancel-button {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.85);
     width: 100%;
-    margin: 1rem;
     border-radius: 3px;
     border: 1px solid #666666;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .search-result {
@@ -224,10 +174,5 @@ input[type='search']::-webkit-search-cancel-button {
 .plus-icon cds-icon {
     margin: 0 0.5rem;
     cursor: pointer;
-}
-
-.save-container form {
-    display: flex;
-    flex-direction: column;
 }
 </style>
