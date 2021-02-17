@@ -1,17 +1,19 @@
 <template>
     <div class="content" layout wide>
-        <div class="content-container" cds-layout="grid">
-            <app-search :token="token" cds-layout="col@md:6"></app-search>
-            <app-tape :token="token" cds-layout="col@md:6"></app-tape>
+        <div class="content-container">
+            <app-search :token="token"></app-search>
+            <app-tape :token="token"></app-tape>
+            <app-create :token="token"></app-create>
         </div>
     </div>
 </template>
 <script>
 import AppSearch from '../components/Search.vue'
 import AppTape from '../components/Tape.vue'
+import AppCreate from '../components/CreateMixtape.vue'
 
 export default {
-    components: { AppSearch, AppTape },
+    components: { AppSearch, AppTape, AppCreate },
     data() {
         return {
             token: null,
@@ -34,7 +36,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: calc(100% - 80px);
     background-image: url('/tape.png');
     background-repeat: no-repeat;
     background-size: 200% auto;
@@ -44,7 +46,7 @@ export default {
 
 @media only screen and (min-width: 992px) {
     .content {
-        margin: 2rem;
+        margin: 2rem 2rem 0;
         background-size: 100% auto;
     }
 }
@@ -53,6 +55,7 @@ export default {
     margin: 1rem;
     position: relative;
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }

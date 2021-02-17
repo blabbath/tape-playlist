@@ -101,5 +101,6 @@ input[type='search']::-webkit-search-cancel-button {
 .save-container {
     display: flex;
     flex-direction: column;
+    height: 10rem;
 }
 </style>

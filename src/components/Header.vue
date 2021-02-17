@@ -25,7 +25,7 @@ export default {
 <style>
 header {
     background-color: black;
-    height: 60px;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +37,6 @@ header a {
     text-decoration: none;
     color: #fff;
     font-weight: 300;
-    font-size: 0.8rem;
 }
 
 .app-title {

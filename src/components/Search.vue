@@ -30,14 +30,11 @@
             </div>
         </div>
     </div>
-    <!-- <app-create :token="token"></app-create> -->
 </template>
 <script>
 import axios from 'axios'
-import AppCreate from './CreateMixtape.vue'
 
 export default {
-    components: { AppCreate },
     props: ['token'],
     data() {
         return {

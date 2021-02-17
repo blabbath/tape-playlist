@@ -1,19 +1,7 @@
 <template>
     <div class="side-container-inner">
         <p class="side">{{ title }}</p>
-        <cds-alert-group
-            status="warning"
-            aria-label="This is an example warning alert group"
-            v-if="alert"
-        >
-            <cds-alert
-                cds-i18n='{ "closeButtonAriaLabel": "close warning alert"}'
-                :closable="true"
-                @click="closeAlert()"
-            >
-                {{ alert }}
-            </cds-alert>
-        </cds-alert-group>
+        <app-alert :alert="alert"></app-alert>
         <transition-group tag="table" name="table">
             <tr
                 v-for="(track, index) in tracks"
@@ -61,7 +49,9 @@
     </div>
 </template>
 <script>
+import AppAlert from './Alert.vue'
 export default {
+    components: { AppAlert },
     props: ['alert', 'title', 'tracks', 'sideIdentifier'],
     methods: {
         removeTrack: function (index, side) {
@@ -79,15 +69,13 @@ export default {
             }
             this.$store.commit('moveTrackUp', obj)
         },
+
         moveTrackDown: function (index, side) {
             let obj = {
                 index,
                 side,
             }
             this.$store.commit('moveTrackDown', obj)
-        },
-        closeAlert: function () {
-            this.$store.commit('closeAlert')
         },
     },
 }
@@ -116,6 +104,7 @@ td {
 cds-alert-group {
     margin-left: 0.75rem;
     width: 60%;
+    margin: 0.5rem;
 }
 
 .icon {
