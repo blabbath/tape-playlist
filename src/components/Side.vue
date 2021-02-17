@@ -8,6 +8,8 @@
         >
             <cds-alert
                 cds-i18n='{ "closeButtonAriaLabel": "close warning alert"}'
+                :closable="true"
+                @click="closeAlert()"
             >
                 {{ alert }}
             </cds-alert>
@@ -43,12 +45,14 @@
                             class="move-icon"
                             shape="angle"
                             size="22"
+                            @click="moveTrackUp(index, sideIdentifier)"
                         ></cds-icon>
                         <cds-icon
                             class="move-icon"
                             shape="angle"
                             size="22"
                             flip="vertical"
+                            @click="moveTrackDown(index, sideIdentifier)"
                         ></cds-icon>
                     </div>
                 </td>
@@ -66,6 +70,24 @@ export default {
                 side,
             }
             this.$store.commit('removeTrack', obj)
+        },
+
+        moveTrackUp: function (index, side) {
+            let obj = {
+                index,
+                side,
+            }
+            this.$store.commit('moveTrackUp', obj)
+        },
+        moveTrackDown: function (index, side) {
+            let obj = {
+                index,
+                side,
+            }
+            this.$store.commit('moveTrackDown', obj)
+        },
+        closeAlert: function () {
+            this.$store.commit('closeAlert')
         },
     },
 }

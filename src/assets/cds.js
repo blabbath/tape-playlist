@@ -9,6 +9,9 @@ import '@cds/city/css/bundles/default.min.css'
 import '@cds/core/icon/register.js'
 import '@cds/core/divider/register.js'
 import '@cds/core/alert/register.js'
+import '@cds/core/button/register.js'
+import '@cds/core/input/register.js'
+import '@cds/core/forms/register.js'
 
 import {
     ClarityIcons,

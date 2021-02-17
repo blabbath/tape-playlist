@@ -10,8 +10,8 @@ export default {
     name: 'tape',
     components: {
         AppHeader,
-        AppContent
-    }
+        AppContent,
+    },
 }
 </script>
 <style>

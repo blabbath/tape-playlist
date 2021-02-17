@@ -25,8 +25,10 @@
 </template>
 <script>
 import AppSide from './Side.vue'
+
 export default {
     components: { AppSide },
+
     computed: {
         tracksA() {
             return this.$store.state.sides.sideA
@@ -49,10 +51,17 @@ export default {
 .tape-container {
     position: absolute;
     width: 100%;
-    top: 65%;
+    top: 42.5%;
     margin: 1rem 0 0 0;
-    padding: 2rem 0;
+    padding: 1rem 0;
     background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 3px;
+}
+
+@media only screen and (min-width: 992px) {
+    .tape-container {
+        top: 37.5%;
+    }
 }
 
 .side {

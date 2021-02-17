@@ -1,12 +1,12 @@
 <template>
-    <div class="content" layout wide>
-        <div v-if="token" class="content-container" cds-layout="grid">
+    <div v-if="token" class="content" layout wide>
+        <div class="content-container" cds-layout="grid">
             <app-search :token="token" cds-layout="col@md:6"></app-search>
-            <app-tape cds-layout="col@md:6"></app-tape>
+            <app-tape :token="token" cds-layout="col@md:6"></app-tape>
         </div>
-        <div v-else>
-            <app-login></app-login>
-        </div>
+    </div>
+    <div v-else>
+        <app-login></app-login>
     </div>
 </template>
 <script>
@@ -39,6 +39,13 @@ export default {
     background-size: 200% auto;
     background-position-x: center;
     margin: 1rem 0;
+}
+
+@media only screen and (min-width: 992px) {
+    .content {
+        margin: 2rem;
+        background-size: 100% auto;
+    }
 }
 
 .content-container {
