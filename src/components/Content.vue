@@ -1,13 +1,11 @@
 <template>
-    <div v-if="token" class="content" layout wide>
+    <div v-if="accessToken" class="content" layout wide>
         <div class="content-container" cds-layout="grid">
-            <app-search :token="token" cds-layout="col@md:6"></app-search>
-            <app-tape :token="token" cds-layout="col@md:6"></app-tape>
+            <app-search :token="accessToken" cds-layout="col@md:6"></app-search>
+            <app-tape :token="accessToken" cds-layout="col@md:6"></app-tape>
         </div>
     </div>
-    <div v-else>
-        <app-login></app-login>
-    </div>
+    <div v-else><app-login></app-login></div>
 </template>
 <script>
 import AppLogin from './Login.vue'
@@ -22,11 +20,13 @@ export default {
         }
     },
 
-    mounted: function () {
+    created: function () {
         this.$store.commit('getToken')
-        this.token = this.$store.state.hash
-
-        console.log(this.token)
+    },
+    computed: {
+        accessToken() {
+            return this.$store.state.token
+        },
     },
 }
 </script>

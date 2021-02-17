@@ -19,7 +19,7 @@ export const store = createStore({
             alertSideA: null,
             alertSideB: null,
         },
-        hash: null,
+        token: null,
     },
     mutations: {
         addTrack(state, n) {
@@ -105,7 +105,7 @@ export const store = createStore({
                     return initial
                 }, {})
             window.location.hash = ''
-            state.hash = hash
+            state.token = hash.access_token
         },
     },
 })
