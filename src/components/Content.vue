@@ -13,7 +13,6 @@
 import AppLogin from './Login.vue'
 import AppSearch from './Search.vue'
 import AppTape from './Tape.vue'
-import hash from '../assets/hash'
 
 export default {
     components: { AppLogin, AppSearch, AppTape },
@@ -24,7 +23,10 @@ export default {
     },
 
     mounted: function () {
-        this.token = hash.access_token
+        this.$store.commit('getToken')
+        this.token = this.$store.state.hash
+
+        console.log(this.token)
     },
 }
 </script>
@@ -34,7 +36,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-image: url('../../public/tape.png');
+    background-image: url('/tape.png');
     background-repeat: no-repeat;
     background-size: 200% auto;
     background-position-x: center;

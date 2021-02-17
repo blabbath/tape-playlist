@@ -1,7 +1,6 @@
 <template>
     <header>
-        <a href="./">MixTape</a
-        ><span><cds-icon shape="headphones" size="36"></cds-icon></span>
+        <a href="./">MixTape</a>
     </header>
 </template>
 <script>
@@ -25,5 +24,6 @@ header {
 header a {
     text-decoration: none;
     color: #fff;
+    font-weight: 300;
 }
 </style>

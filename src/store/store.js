@@ -19,6 +19,7 @@ export const store = createStore({
             alertSideA: null,
             alertSideB: null,
         },
+        hash: null,
     },
     mutations: {
         addTrack(state, n) {
@@ -90,6 +91,21 @@ export const store = createStore({
         },
         closeAlert(state) {
             unsetAlert(state.alerts)
+        },
+
+        getToken(state) {
+            const hash = window.location.hash
+                .substring(1)
+                .split('&')
+                .reduce((initial, item) => {
+                    if (item) {
+                        let parts = item.split('=')
+                        initial[parts[0]] = decodeURIComponent(parts[1])
+                    }
+                    return initial
+                }, {})
+            window.location.hash = ''
+            state.hash = hash
         },
     },
 })
