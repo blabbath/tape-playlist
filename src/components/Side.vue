@@ -1,7 +1,10 @@
 <template>
     <div class="side-container-inner">
         <p class="side">{{ title }}</p>
-        <app-alert :alert="alert"></app-alert>
+        <app-alert
+            :alertMessage="alertMessage"
+            :alertStatus="alertStatus"
+        ></app-alert>
         <transition-group tag="table" name="table">
             <tr
                 v-for="(track, index) in tracks"
@@ -52,7 +55,12 @@
 import AppAlert from './Alert.vue'
 export default {
     components: { AppAlert },
-    props: ['alert', 'title', 'tracks', 'sideIdentifier'],
+    data() {
+        return {
+            alertStatus: 'warning',
+        }
+    },
+    props: ['alertMessage', 'title', 'tracks', 'sideIdentifier'],
     methods: {
         removeTrack: function (index, side) {
             let obj = {

@@ -1,32 +1,30 @@
 <template>
-    <div layout wide>
-        <div class="search-container">
-            <input
-                type="search"
-                v-model="searchInput"
-                @keyup="searchSpotifyAPI"
-                placeholder="Search for a track"
-                cds-text="section"
-            />
+    <div class="search-container">
+        <input
+            type="search"
+            v-model="searchInput"
+            @keyup="searchSpotifyAPI"
+            placeholder="Search for a track"
+            cds-text="section"
+        />
 
-            <div class="search-output" v-if="searchInput">
-                <div
-                    v-for="result of searchResult"
-                    :key="result"
-                    class="search-result"
-                    cds-text="message"
-                >
-                    <div class="plus-icon" @click="addTrackToStore(result)">
-                        <cds-icon
-                            shape="plus-circle"
-                            status="success"
-                            size="22"
-                        ></cds-icon>
-                    </div>
-                    {{ result.artist }} - {{ result.track }} ({{
-                        result.duration_mmss
-                    }})
+        <div class="search-output" v-if="searchInput">
+            <div
+                v-for="result of searchResult"
+                :key="result"
+                class="search-result"
+                cds-text="message"
+            >
+                <div class="plus-icon" @click="addTrackToStore(result)">
+                    <cds-icon
+                        shape="plus-circle"
+                        status="success"
+                        size="22"
+                    ></cds-icon>
                 </div>
+                {{ result.artist }} - {{ result.track }} ({{
+                    result.duration_mmss
+                }})
             </div>
         </div>
     </div>
@@ -92,18 +90,21 @@ export default {
     },
 }
 </script>
-<style>
+<style scoped>
 .search-container {
-    position: absolute;
+    /*     position: absolute;
     left: 0;
     right: 0;
     top: 11%;
-    margin: 0 auto;
+    margin: 0 auto; */
+    transform: translateY(100%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 60%;
+    margin-top: 0rem;
 }
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
     .search-container {
         top: 13%;
         width: 24rem;
@@ -126,11 +127,11 @@ export default {
         top: 11%;
         width: 40rem;
     }
-}
+} */
 
 input[type='search'],
 input[type='text'] {
-    width: 100%;
+    width: 60%;
     height: 3rem;
     padding: 0.6rem;
     border: 1px solid #666666;
@@ -154,10 +155,11 @@ input[type='search']::-webkit-search-cancel-button {
     flex-direction: column;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.85);
-    width: 100%;
+    width: 60%;
     border-radius: 3px;
     border: 1px solid #666666;
     padding: 0.5rem;
+    margin: 0.5rem 0 1rem;
 }
 
 .search-result {

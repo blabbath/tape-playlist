@@ -27,7 +27,7 @@
                     clientID +
                     '&redirect_uri=' +
                     redirectURI +
-                    '&response_type=token&show_dialog=true&scope=playlist-modify-private'
+                    '&scope=playlist-read-private%20playlist-modify-private%20user-read-private&response_type=token&show_dialog=true'
                 "
                 cds-layout="m-t:lg"
                 cds-text="section"
@@ -52,6 +52,7 @@ export default {
         return {
             clientID: config.clientID,
             redirectURI: config.redirectURI,
+            scopes: config.scopes,
         }
     },
 }

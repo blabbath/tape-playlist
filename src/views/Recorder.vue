@@ -15,15 +15,18 @@ import AppCreate from '../components/CreateMixtape.vue'
 export default {
     components: { AppSearch, AppTape, AppCreate },
     data() {
-        return {
-            token: null,
-        }
+        return {}
     },
-    mounted() {
+
+    beforeCreate() {
         if (!this.$store.state.token) {
             this.$store.commit('getToken')
+            if (!this.$store.state.token) {
+                window.location.href = '/'
+            }
         }
     },
+
     computed: {
         token() {
             return this.$store.state.token
@@ -54,9 +57,11 @@ export default {
 .content-container {
     margin: 1rem;
     position: relative;
-    height: 100%;
-    width: 100%;
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 </style>

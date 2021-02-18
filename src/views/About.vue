@@ -5,7 +5,7 @@
 export default {
     beforeCreate() {
         if (!this.$store.state.token) {
-            window.location.href = 'login'
+            window.location.href = '/'
         }
     },
 }

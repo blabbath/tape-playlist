@@ -1,4 +1,3 @@
-import { setAttributes } from '@cds/core/internal'
 import { createStore } from 'vuex'
 
 let sumDuration = function (arr) {
@@ -16,8 +15,9 @@ export const store = createStore({
     state: {
         sides: { sideA: [], sideB: [] },
         alerts: {
-            alertSideA: null,
-            alertSideB: null,
+            sideA: null,
+            sideB: null,
+            playlistCreated: null,
         },
         token: null,
     },
@@ -29,16 +29,16 @@ export const store = createStore({
                 sumDuration(state.sides.sideA) + durationCurrentTrack
             let totalLengthB =
                 sumDuration(state.sides.sideB) + durationCurrentTrack
-            state.alerts.alertSideA = null
-            state.alerts.alertSideB = null
+            state.alerts.sideA = null
+            state.alerts.sideB = null
             if (totalLengthA <= sideMS) {
                 state.sides.sideA.push(n)
             } else if (totalLengthB <= sideMS) {
-                state.alerts.alertSideA =
+                state.alerts.sideA =
                     'Side A of your mixtape cannot hold a track of that length.'
                 state.sides.sideB.push(n)
             } else {
-                state.alerts.alertSideB =
+                state.alerts.sideB =
                     'Side B of your mixtape cannot hold a track of that length.'
             }
         },
@@ -57,7 +57,7 @@ export const store = createStore({
                     state.sides.sideA.push(element)
                     state.sides.sideB.shift()
                 } else {
-                    state.alerts.alertSideA =
+                    state.alerts.sideA =
                         'Side A of your mixtape cannot hold a track of that length.'
                 }
             } else {
@@ -80,7 +80,7 @@ export const store = createStore({
                     state.sides.sideB.unshift(element)
                     state.sides.sideA.pop()
                 } else {
-                    state.alerts.alertSideB =
+                    state.alerts.sideB =
                         'Side B of your mixtape cannot hold a track of that length.'
                 }
             } else {
@@ -89,6 +89,12 @@ export const store = createStore({
                 state.sides[obj.side].splice(obj.index + 1, 0, element)
             }
         },
+
+        alertPlaylistCreate(state) {
+            state.alerts.playlistCreated = `Your Mixtape was successfully saved, you can check it out in your Spotify Premium Account!`
+            console.log(state.alerts.playlistCreated)
+        },
+
         closeAlert(state) {
             unsetAlert(state.alerts)
         },
