@@ -31,52 +31,28 @@ export default {
 
     computed: {
         tracksA() {
-            return this.$store.state.sides.sideA
+            return this.$store.state.tape.sides.sideA
         },
 
         sideA() {
-            return this.$store.state.alerts.sideA
+            return this.$store.state.tape.alerts.sideA
         },
 
         tracksB() {
-            return this.$store.state.sides.sideB
+            return this.$store.state.tape.sides.sideB
         },
 
         sideB() {
-            return this.$store.state.alerts.sideB
+            return this.$store.state.tape.alerts.sideB
         },
     },
 }
 </script>
 <style>
 .tape-container {
-    /*     position: absolute;
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 30%;
-    margin: 0 auto; */
     padding: 1rem 0;
+    width: 80%;
 }
-
-/* @media only screen and (min-width: 768px) {
-    .tape-container {
-        top: 32%;
-        width: 90%;
-    }
-}
-@media only screen and (min-width: 992px) {
-    .tape-container {
-        top: 28%;
-        width: 80%;
-    }
-}
-
-@media only screen and (min-width: 1440px) {
-    .tape-container {
-        top: 30%;
-    }
-} */
 
 .side-container {
     width: 95%;

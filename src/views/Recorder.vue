@@ -4,8 +4,6 @@
             <app-search :token="token"></app-search>
             <app-tape :token="token"></app-tape>
             <app-create :token="token"></app-create>
-            <!--             <app-player :token="token"></app-player>
- -->
         </div>
     </div>
 </template>
@@ -22,9 +20,9 @@ export default {
     },
 
     beforeCreate() {
-        if (!this.$store.state.token) {
+        if (!this.$store.state.auth.token) {
             this.$store.commit('getToken')
-            if (!this.$store.state.token) {
+            if (!this.$store.state.auth.token) {
                 window.location.href = '/'
             }
         }
@@ -32,7 +30,7 @@ export default {
 
     computed: {
         token() {
-            return this.$store.state.token
+            return this.$store.state.auth.token
         },
     },
 }

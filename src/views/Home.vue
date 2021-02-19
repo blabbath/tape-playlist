@@ -59,9 +59,10 @@ export default {
             redirectURI: config.redirectURI,
         }
     },
+
     computed: {
         token() {
-            return this.$store.state.token
+            return this.$store.state.auth.token
         },
     },
 }

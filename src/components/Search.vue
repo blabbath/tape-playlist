@@ -53,6 +53,7 @@ export default {
         clearSearch: function () {
             this.searchInput = ''
         },
+
         searchSpotifyAPI: function () {
             if (this.token && this.searchInput) {
                 axios
@@ -138,6 +139,7 @@ input[type='search']::-webkit-search-cancel-button {
 .clear-btn {
     position: absolute;
     transform: translate(1000%, 0%);
+    cursor: pointer;
 }
 
 .search-output {
