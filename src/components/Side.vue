@@ -1,10 +1,10 @@
 <template>
     <div class="side-container-inner">
         <p class="side">{{ title }}</p>
-        <app-alert
+        <app-side-alert
             :alertMessage="alertMessage"
             :alertStatus="alertStatus"
-        ></app-alert>
+        ></app-side-alert>
         <transition-group tag="table" name="table">
             <tr
                 v-for="(track, index) in tracks"
@@ -52,9 +52,9 @@
     </div>
 </template>
 <script>
-import AppAlert from './Alert.vue'
+import AppSideAlert from './SideAlert.vue'
 export default {
-    components: { AppAlert },
+    components: { AppSideAlert },
     data() {
         return {
             alertStatus: 'warning',
@@ -107,12 +107,6 @@ tr td {
 td {
     border-spacing: 0;
     padding: 0.5rem 0.5rem;
-}
-
-cds-alert-group {
-    margin-left: 0.75rem;
-    width: 60%;
-    margin: 0.5rem;
 }
 
 .icon {

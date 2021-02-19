@@ -7,23 +7,20 @@
             v-model="mixName"
             required
         />
-        <!--         <app-alert
-            :alertMessage="alertSuccess"
+        <cds-button @click="createMixtape">Save Mixtape</cds-button>
+        <create-alert
+            :alertMessage="alertMessage"
             :alertStatus="alertStatus"
-        ></app-alert> -->
-        <!--         <app-alert
-            :alertMessage="alertDanger"
-            :alertStatus="alertStatus"
-        ></app-alert> -->
-        <cds-button @click="createMixtape">Save Mixtape </cds-button>
+            :alertCount="alertCount"
+        ></create-alert>
     </div>
 </template>
 <script>
 import axios from 'axios'
-import AppAlert from './Alert.vue'
+import CreateAlert from './CreateAlert.vue'
 
 export default {
-    components: { AppAlert },
+    components: { CreateAlert },
     data() {
         return {
             mixName: '',
@@ -31,18 +28,30 @@ export default {
             userId: null,
             playlistItems: [],
             offset: 0,
-            alertStatus: null,
+            alertMessage: '',
+            alertStatus: '',
+            alertCount: 0,
         }
     },
     props: ['token'],
     methods: {
         createMixtape: function () {
-            if (this.mixName.length === 0 || this.tracks.length === 0) {
+            if (this.mixName.length === 0) {
+                this.sendAlert(
+                    'Please provide a name for your Mixtape',
+                    'danger'
+                )
+                return false
+            } else if (this.tracks.length === 0) {
+                this.sendAlert(
+                    'There are no tracks to save on your tape!',
+                    'danger'
+                )
                 return false
             } else {
                 this.getUserPlaylists(true).then(() => {
                     if (this.checkUniqueName()) {
-                        return
+                        return false
                     } else {
                         axios({
                             method: 'POST',
@@ -51,7 +60,6 @@ export default {
                                 description: 'New Mixtape',
                                 public: false,
                             },
-
                             headers: this.auth,
                             url: `https://api.spotify.com/v1/users/${this.userId}/playlists`,
                         }).then((response) => {
@@ -61,8 +69,11 @@ export default {
                                 headers: this.auth,
                                 url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${this.tracks}`,
                             }).then(() => {
-                                this.alertSuccess
-                                this.alertStatus = 'success'
+                                this.sendAlert(
+                                    'Your Mixtape was successfully saved!',
+                                    'success'
+                                )
+                                return true
                             })
                         })
                     }
@@ -84,7 +95,6 @@ export default {
                     )
                     this.getUserPlaylists(init)
                 } else {
-                    this.checkUniqueName
                     return false
                 }
             })
@@ -96,12 +106,20 @@ export default {
                 ...new Set(this.playlistItems.map((item) => item.name)),
             ]
             if (arrayNames.includes(this.mixName)) {
-                this.alertStatus = 'danger'
-                this.alertMessage = `You already own a playlists named "${this.mixName}", please provide a unique name.`
+                this.sendAlert(
+                    'This name is already taken by another playlist of yours.',
+                    'danger'
+                )
                 return true
             } else {
                 return false
             }
+        },
+
+        sendAlert(message, status) {
+            this.alertMessage = message
+            this.alertStatus = status
+            this.alertCount++
         },
     },
 
@@ -122,14 +140,11 @@ export default {
             let tracks = []
             sideA.forEach((s) => tracks.push(s.id))
             sideB.forEach((s) => tracks.push(s.id))
-            let arr = tracks.map((track) => 'spotify%3Atrack%3A' + track)
-            let tracksString = arr.join('%2C')
+            let tracksString = tracks
+                .map((track) => 'spotify%3Atrack%3A' + track)
+                .join('%2C')
             return tracksString
         },
-
-        /*         alertSuccess() {
-            return this.$store.commit('alertPlaylistCreate')
-        }, */
     },
 }
 </script>
@@ -141,7 +156,7 @@ export default {
 }
 
 input[type='text'] {
-    width: 20rem;
+    width: 15rem;
     height: 3rem;
     padding: 0.6rem;
     border: 1px solid #666666;
@@ -157,5 +172,9 @@ input:focus {
 
 input[type='search']::-webkit-search-cancel-button {
     display: none;
+}
+
+cds-button {
+    margin-top: 3rem;
 }
 </style>

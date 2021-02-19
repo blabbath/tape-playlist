@@ -1,12 +1,20 @@
 <template>
     <div class="search-container">
-        <input
-            type="search"
-            v-model="searchInput"
-            @keyup="searchSpotifyAPI"
-            placeholder="Search for a track"
-            cds-text="section"
-        />
+        <div class="search-input">
+            <input
+                type="search"
+                v-model="searchInput"
+                @keyup="searchSpotifyAPI"
+                placeholder="Search for a track"
+                cds-text="section"
+            />
+            <cds-icon
+                class="clear-btn"
+                @click="clearSearch"
+                shape="times"
+                size="26"
+            ></cds-icon>
+        </div>
 
         <div class="search-output" v-if="searchInput">
             <div
@@ -42,6 +50,9 @@ export default {
         }
     },
     methods: {
+        clearSearch: function () {
+            this.searchInput = ''
+        },
         searchSpotifyAPI: function () {
             if (this.token && this.searchInput) {
                 axios
@@ -92,48 +103,23 @@ export default {
 </script>
 <style scoped>
 .search-container {
-    /*     position: absolute;
-    left: 0;
-    right: 0;
-    top: 11%;
-    margin: 0 auto; */
-    transform: translateY(100%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
     margin-top: 0rem;
 }
-/* @media only screen and (min-width: 768px) {
-    .search-container {
-        top: 13%;
-        width: 24rem;
-    }
-}
 
-@media only screen and (min-width: 992px) {
-    .search-container {
-        top: 9%;
-        width: 30rem;
-    }
+.search-input {
+    display: flex;
+    align-items: center;
 }
-@media only screen and (min-width: 1200px) {
-    .search-container {
-        top: 9%;
-    }
-}
-@media only screen and (min-width: 1440px) {
-    .search-container {
-        top: 11%;
-        width: 40rem;
-    }
-} */
 
 input[type='search'],
 input[type='text'] {
-    width: 60%;
+    width: 15rem;
     height: 3rem;
-    padding: 0.6rem;
+    padding-left: 0.6rem;
+    padding-right: 2.5rem;
     border: 1px solid #666666;
     border-radius: 3px;
     background-color: white;
@@ -149,17 +135,23 @@ input[type='search']::-webkit-search-cancel-button {
     display: none;
 }
 
+.clear-btn {
+    position: absolute;
+    transform: translate(1000%, 0%);
+}
+
 .search-output {
+    position: absolute;
     display: flex;
     z-index: 100;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.85);
-    width: 60%;
-    border-radius: 3px;
+    min-height: 8rem;
+    background-color: white;
+    top: 4rem;
     border: 1px solid #666666;
-    padding: 0.5rem;
-    margin: 0.5rem 0 1rem;
+    border-radius: 3px;
+    padding: 1rem;
 }
 
 .search-result {

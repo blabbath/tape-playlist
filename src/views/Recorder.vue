@@ -4,6 +4,8 @@
             <app-search :token="token"></app-search>
             <app-tape :token="token"></app-tape>
             <app-create :token="token"></app-create>
+            <!--             <app-player :token="token"></app-player>
+ -->
         </div>
     </div>
 </template>
@@ -11,9 +13,10 @@
 import AppSearch from '../components/Search.vue'
 import AppTape from '../components/Tape.vue'
 import AppCreate from '../components/CreateMixtape.vue'
+import AppPlayer from '../components/Player.vue'
 
 export default {
-    components: { AppSearch, AppTape, AppCreate },
+    components: { AppSearch, AppTape, AppCreate, AppPlayer },
     data() {
         return {}
     },
@@ -39,23 +42,13 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 80px);
-    background-image: url('/tape.png');
-    background-repeat: no-repeat;
-    background-size: 200% auto;
-    background-position-x: center;
-    margin: 1rem 0;
-}
-
-@media only screen and (min-width: 992px) {
-    .content {
-        margin: 2rem 2rem 0;
-        background-size: 100% auto;
-    }
+    height: calc(100% -3rem -80px);
+    margin: 3rem 1rem 0;
+    overflow-y: auto;
 }
 
 .content-container {
-    margin: 1rem;
+    margin: 1rem 1rem;
     position: relative;
     display: flex;
     width: 100%;

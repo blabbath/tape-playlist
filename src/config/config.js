@@ -2,5 +2,15 @@ export default {
     clientID: '7d14777b6b024bd08fd019b5e90136c9',
     clientSecret: '66d2864d7e9b46b19fec6f9d04821fe6',
     redirectURI: 'http://localhost:3000/recorder',
-    scopes: ['playlist-read-private', 'playlist-modify-private'],
+    scopes: [
+        'user-read-currently-playing',
+        'user-read-playback-state',
+        'playlist-read-private',
+        'playlist-modify-private',
+        'user-read-private',
+        'streaming',
+        'user-read-email',
+        'user-library-read',
+    ],
+    apiBase: 'https://api.spotify.com/v1/',
 }

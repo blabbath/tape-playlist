@@ -57,10 +57,6 @@ export default {
     top: 30%;
     margin: 0 auto; */
     padding: 1rem 0;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 3px;
-    border: 1px solid #666666;
-    width: 90%;
 }
 
 /* @media only screen and (min-width: 768px) {

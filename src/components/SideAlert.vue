@@ -27,7 +27,7 @@ export default {
 </script>
 <style scoped>
 cds-alert-group {
-    margin: 0 0 0.5rem 0;
+    margin: 0.5rem 0 0.5rem 0;
 }
 
 .alert-enter-from {

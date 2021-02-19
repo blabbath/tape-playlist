@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import axios from 'axios'
 
 import App from './App.vue'
 import { store } from './store/store'

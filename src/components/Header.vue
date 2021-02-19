@@ -2,10 +2,9 @@
     <header>
         <p class="app-title">MixTape</p>
         <div class="header-nav" v-if="token">
-            <router-link cds-layout="m-x:md" to="Recorder"
-                >Recorder</router-link
-            >
+            <router-link cds-layout="m-x:md" to="Recorder">Home</router-link>
             <router-link cds-layout="m-x:md" to="About">About</router-link>
+            <a href="./">Logout</a>
         </div>
     </header>
 </template>
@@ -42,5 +41,12 @@ header a {
 .app-title {
     font-weight: 300;
     font-size: 1.2rem;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    margin-left: 0.8rem;
 }
 </style>

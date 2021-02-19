@@ -22,13 +22,9 @@
             </p>
             <a
                 class="btn"
-                :href="
-                    'https://accounts.spotify.com/authorize?client_id=' +
-                    clientID +
-                    '&redirect_uri=' +
-                    redirectURI +
-                    '&scope=playlist-read-private%20playlist-modify-private%20user-read-private&response_type=token&show_dialog=true'
-                "
+                :href="`https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scopes.join(
+                    '%20'
+                )}&response_type=token&show_dialog=true`"
                 cds-layout="m-t:lg"
                 cds-text="section"
             >
