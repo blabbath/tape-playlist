@@ -50,11 +50,11 @@ export default {
         }
     },
     methods: {
-        clearSearch: function () {
+        clearSearch () {
             this.searchInput = ''
         },
 
-        searchSpotifyAPI: function () {
+        searchSpotifyAPI () {
             if (this.token && this.searchInput) {
                 axios
                     .get(
@@ -68,7 +68,7 @@ export default {
             }
         },
 
-        msToMinuteSecond: function (ms) {
+        msToMinuteSecond (ms) {
             let seconds = ms / 1000
             seconds = seconds % 3600
             let minutes = parseInt(seconds / 60)
@@ -76,13 +76,13 @@ export default {
             return minutes + ':' + this.padSeconds(seconds)
         },
 
-        padSeconds: function (num) {
+        padSeconds (num) {
             num = num.toString()
             while (num.length === 1) num = '0' + num
             return num
         },
 
-        returnAPIresults: function (response) {
+        returnAPIresults (response) {
             this.searchResult.length = 0
             response.data.tracks.items.forEach((item) => {
                 let obj = {}
@@ -96,7 +96,7 @@ export default {
             })
         },
 
-        addTrackToStore: function (result) {
+        addTrackToStore (result) {
             this.$store.commit('addTrack', result)
         },
     },

@@ -31,81 +31,89 @@ export default {
             alertMessage: '',
             alertStatus: '',
             alertCount: 0,
+            playlists: null,
         }
     },
     props: ['token'],
     methods: {
-        createMixtape: function () {
+        createMixtape () {
+            this.checkRequirements()
+                ? false
+                : this.getUserPlaylists(true).then(() => {
+                      this.checkUniqueName()
+                          ? false
+                          : axios({
+                                method: 'POST',
+                                data: {
+                                    name: this.mixName,
+                                    description: 'New Mixtape',
+                                    public: false,
+                                },
+                                headers: this.auth,
+                                url: `https://api.spotify.com/v1/users/${this.userId}/playlists`,
+                            }).then((response) => {
+                                let playlistId = response.data.id
+                                axios({
+                                    method: 'POST',
+                                    headers: this.auth,
+                                    url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${this.tracks}`,
+                                }).then(() => {
+                                    this.sendAlert(
+                                        'Your Mixtape was successfully saved!',
+                                        'success'
+                                    )
+                                })
+                            })
+                  })
+        },
+
+        checkRequirements () {
             if (this.mixName.length === 0) {
                 this.sendAlert(
                     'Please provide a name for your Mixtape',
                     'danger'
                 )
-                return false
+                return true
             } else if (this.tracks.length === 0) {
                 this.sendAlert(
                     'There are no tracks to save on your tape!',
                     'danger'
                 )
-                return false
-            } else {
-                this.getUserPlaylists(true).then(() => {
-                    if (this.checkUniqueName()) {
-                        return false
-                    } else {
-                        axios({
-                            method: 'POST',
-                            data: {
-                                name: this.mixName,
-                                description: 'New Mixtape',
-                                public: false,
-                            },
-                            headers: this.auth,
-                            url: `https://api.spotify.com/v1/users/${this.userId}/playlists`,
-                        }).then((response) => {
-                            let playlistId = response.data.id
-                            axios({
-                                method: 'POST',
-                                headers: this.auth,
-                                url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${this.tracks}`,
-                            }).then(() => {
-                                this.sendAlert(
-                                    'Your Mixtape was successfully saved!',
-                                    'success'
-                                )
-                                return true
-                            })
-                        })
-                    }
-                })
+                return true
             }
         },
 
-        getUserPlaylists: function (init) {
-            init ? (init = false) : (this.offset = this.offset + 10)
+        getUserPlaylists (init) {
+            if (init) {
+                init = false
+            } else {
+                this.offset = this.offset + 10
+            }
 
             return axios({
                 method: 'GET',
                 headers: this.auth,
                 url: `https://api.spotify.com/v1/me/playlists?limit=10&offset=${this.offset}`,
-            }).then((playlists) => {
-                if (playlists.data.items.length !== 0) {
-                    playlists.data.items.forEach((item) =>
+            }).then((res) => {
+                if (res.data.items.length !== 0) {
+                    res.data.items.forEach((item) =>
                         this.playlistItems.push(item)
                     )
                     this.getUserPlaylists(init)
                 } else {
-                    return false
+                    /* Reset variables for the next call of the function */
+                    this.offset = 0
+                    this.playlistItems.length = 0
+                    return
                 }
             })
         },
 
-        checkUniqueName: function () {
-            this.alertMessage = null
-            let arrayNames = [
+        checkUniqueName () {
+            this.playlists = [
                 ...new Set(this.playlistItems.map((item) => item.name)),
             ]
-            if (arrayNames.includes(this.mixName)) {
+            if (this.playlists.includes(this.mixName)) {
                 this.sendAlert(
                     'This name is already taken by another playlist of yours.',
                     'danger'
@@ -135,8 +143,8 @@ export default {
 
     computed: {
         tracks() {
-            let sideA = this.$store.state.sides.sideA
-            let sideB = this.$store.state.sides.sideB
+            let sideA = this.$store.state.tape.sides.sideA
+            let sideB = this.$store.state.tape.sides.sideB
             let tracks = []
             sideA.forEach((s) => tracks.push(s.id))
             sideB.forEach((s) => tracks.push(s.id))

@@ -1,4 +1,4 @@
-const state = { token: null }
+const state = { token: localStorage.getItem('token') || null }
 
 const mutations = {
     getToken(state) {
@@ -14,6 +14,7 @@ const mutations = {
             }, {})
         window.location.hash = ''
         state.token = hash.access_token
+        localStorage.setItem('token', state.token)
     },
 }
 

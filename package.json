@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "serve": "vite preview"
+        "serve": "vite preview --port 3000"
     },
     "dependencies": {
         "@cds/city": "^1.1.0",

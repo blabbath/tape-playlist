@@ -2,9 +2,9 @@
     <header>
         <p class="app-title">MixTape</p>
         <div class="header-nav" v-if="token">
-            <router-link cds-layout="m-x:md" to="Recorder">Home</router-link>
+            <router-link cds-layout="m-x:md" to="Recorder">Recorder</router-link>
             <router-link cds-layout="m-x:md" to="About">About</router-link>
-            <a href="./">Logout</a>
+            <a href="./" @click="logout">Logout</a>
         </div>
     </header>
 </template>
@@ -19,6 +19,12 @@ export default {
             return this.$store.state.auth.token
         },
     },
+
+    methods:{
+        logout() {
+            localStorage.removeItem('token')
+        }
+    }
 }
 </script>
 <style>

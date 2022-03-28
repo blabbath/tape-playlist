@@ -11,10 +11,9 @@
 import AppSearch from '../components/Search.vue'
 import AppTape from '../components/Tape.vue'
 import AppCreate from '../components/CreateMixtape.vue'
-import AppPlayer from '../components/Player.vue'
 
 export default {
-    components: { AppSearch, AppTape, AppCreate, AppPlayer },
+    components: { AppSearch, AppTape, AppCreate },
     data() {
         return {}
     },

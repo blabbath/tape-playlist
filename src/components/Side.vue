@@ -62,7 +62,7 @@ export default {
     },
     props: ['alertMessage', 'title', 'tracks', 'sideIdentifier'],
     methods: {
-        removeTrack: function (index, side) {
+        removeTrack(index, side) {
             let obj = {
                 index,
                 side,
@@ -70,7 +70,7 @@ export default {
             this.$store.commit('removeTrack', obj)
         },
 
-        moveTrackUp: function (index, side) {
+        moveTrackUp(index, side) {
             let obj = {
                 index,
                 side,
@@ -78,7 +78,7 @@ export default {
             this.$store.commit('moveTrackUp', obj)
         },
 
-        moveTrackDown: function (index, side) {
+        moveTrackDown(index, side) {
             let obj = {
                 index,
                 side,

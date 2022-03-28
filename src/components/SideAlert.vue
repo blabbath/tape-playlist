@@ -19,7 +19,7 @@
 export default {
     props: ['alertMessage', 'alertStatus'],
     methods: {
-        closeAlert: function () {
+        closeAlert () {
             this.$store.commit('closeAlert')
         },
     },

@@ -1,9 +1,8 @@
 <template>
-    <div class="alert-container">
+    <div class="alert-container" v-if="show">
         <cds-alert-group
             :status="alertStatus"
             aria-label="This is an example warning alert group"
-            v-if="show"
         >
             <cds-alert
                 cds-i18n='{ "closeButtonAriaLabel": "close warning alert"}'
@@ -25,16 +24,16 @@ export default {
         }
     },
     methods: {
-        closeAlert: function () {
+        closeAlert () {
             this.show = false
         },
     },
     watch: {
-        alertMessage: function () {
+        alertMessage () {
             this.show = true
         },
 
-        alertCount: function () {
+        alertCount () {
             this.show = true
         },
     },
